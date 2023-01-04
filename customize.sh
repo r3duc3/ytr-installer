@@ -31,9 +31,6 @@ fi
 ui_print "[-] real $REAL_NAME installed"
 
 # then patch
-REAL_BASE=$(pm path com.google.android.youtube | sed 's/package://g')
-REAL_PATH=$(dirname $REAL_BASE)
-MODIFIED_PATH="$MODPATH/$REAL_PATH"
-mkdir $MODIFIED_PATH
-cp $MODIFIED $MODIFIED_PATH
+cp $MODIFIED $MODPATH/base.apk
+rm $MODIFIED
 ui_print "[+] revanced installed"
