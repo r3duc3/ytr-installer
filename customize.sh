@@ -4,7 +4,7 @@ fi
 
 #####################
 # here's the config #
-REAL='/sdcard/YouTube.apk' # real youtube file
+REAL_NAME='YouTube'
 MODIFIED='/data/adb/revanced.apk' # modified youtube
 #####################
 
@@ -12,23 +12,23 @@ if ! [ -f $MODIFIED ]; then
 	abort "[!] modified youtube not found"
 fi
 
-NAME='YouTube'
 INSTALLED=$(pm list packages | grep 'com.google.android.youtube')
-EXIST=$(ls -1 $REAL)
 
 # check real Youtube first
-ui_print "[+] Check real $NAME"
-if ! $INSTALLED; then
-	ui_print "[-] Real $NAME not installed"
-	if ! $EXIST; then
-		abort "[!] file $REAL not exist"
+ui_print "[+] Check real $REAL_NAME"
+if ! [ $INSTALLED ]; then
+	ui_print "[-] Real $REAL_NAME not installed"
+	if ! [ -f "/sdcard/$REAL_NAME.apk" ]; then
+		abort "[!] file $REAL_NAME not exist"
 	fi
-	ui_print "[-] Installing real $NAME"
+	ui_print "[-] Installing real $REAL_NAME"
+	cp "/sdcard/$REAL_NAME.apk" "/data/local/tmp"
 	mmm_exec showLoading
-	pm install --dont-kill -g $REAL
+	pm install --dont-kill -g "/data/local/tmp/$REAL_NAME.apk"
 	mmm_exec hideLoading
+	rm "/data/local/tmp/$REAL_NAME.apk"
 fi
-ui_print "[-] real $NAME installed"
+ui_print "[-] real $REAL_NAME installed"
 
 # then patch
 REAL_BASE=$(pm path com.google.android.youtube | sed 's/package://g')
