@@ -31,6 +31,9 @@ fi
 ui_print "[-] real $REAL_NAME installed"
 
 # then patch
+ui_print "[+] revanced patch"
+mmm_exec showLoading
 cp $MODIFIED $MODPATH/base.apk
 rm $MODIFIED
-ui_print "[+] revanced installed"
+mmm_exec hideLoading
+ui_print "[-] installed"
