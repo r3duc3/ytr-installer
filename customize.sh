@@ -19,7 +19,8 @@ _modified='revanced.apk'
 ###############
 # please don't change
 _modifiedDir='/data/adb/revanced'
-_pmCmd="pm path com.google.android.youtube | grep base | sed 's/package\://'"
+_pkg='com.google.android.youtube'
+_pmCmd="pm path $_pkg | grep base | sed 's/package\://'"
 ###############
 
 if ! [ -f $_dir/$_modified ]; then
@@ -47,7 +48,7 @@ ui_print "[*] original youtube installed"
 mmm_exec showLoading
 ui_print "[*] patching"
 
-am force-stop com.google.android.youtube
+am force-stop $_pkg
 umount -l $_pmCmd
 
 mkdir -p $_modifiedDir
@@ -65,6 +66,11 @@ while [ "\$(getprop sys.boot_completed | tr -d '\r')" != "1" ]; do sleep 3; done
 patch=$_modifiedDir/$_modified
 orig=\$($_pmCmd)
 [ ! -z \$orig ] && mount -o bind \$patch \$orig;
+EOM
+
+cat >> $MODPATH/uninstall.sh << EOM
+am force-stop $_pkg
+umount -l \$($_pmCmd)
 EOM
 
 mmm_exec hideLoading
