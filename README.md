@@ -1,3 +1,7 @@
 # YouTube Revanced installer
 Magisk module that help you to install youtube revanced with root method.
 
+## Todo
+- [x] revanced installer
+- [ ] build patcher (cli based)
+- [ ] build patcher (web based)
