@@ -1,4 +1,4 @@
-if !$BOOTMODE; then
+if ! $BOOTMODE; then
 	abort "[!] magisk only"
 fi
 
@@ -9,7 +9,7 @@ _dir='/sdcard'
 _original='YouTube.apk'
 _modified='revanced.apk'
 _modifiedDir='/data/adb/revanced'
-_pmCmd=("pm path com.google.android.youtube | grep base | sed 's/package\://'")
+_pmCmd="pm path com.google.android.youtube | grep base | sed 's/package\://'"
 ###############
 
 if ! [ -f $_dir/$_modified ]; then
@@ -44,7 +44,7 @@ chmod 0644 $_modifiedDir/$_modified
 chown system:system $_modifiedDir/$_modified
 chcon u:object_r:apk_data_file:s0 $_modifiedDir/$_modified
 
-cat > $MODDIR/service.sh << EOM
+cat > $MODPATH/service.sh << EOM
 #!/usr/bin/sh
 while [ "\$(getprop sys.boot_completed | tr -d '\r')" != "1" ]; do sleep 3; done
 patch=$_modifiedDir/$_modified
