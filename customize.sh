@@ -68,9 +68,10 @@ orig=\$($_pmCmd)
 [ ! -z \$orig ] && mount -o bind \$patch \$orig;
 EOM
 
-cat >> $MODPATH/uninstall.sh << EOM
+cat > $MODPATH/uninstall.sh << EOM
 am force-stop $_pkg
 umount -l \$($_pmCmd)
+rm -rf $_modifiedDir
 EOM
 
 mmm_exec hideLoading
