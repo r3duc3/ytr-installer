@@ -1,2 +1,1 @@
-pm clear com.google.android.youtube
-pm uninstall com.google.android.youtube
+rm -rf /data/adb/revanced
