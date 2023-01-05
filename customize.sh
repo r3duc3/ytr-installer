@@ -36,7 +36,7 @@ if ! [ $_pmCmd ]; then
 	mmm_exec showLoading
 	ui_print "[*] installing $_original"
 	cp $_dir/$_original /data/local/tmp
-	pm install --dont-kill -g "/data/local/tmp/$_original"
+	pm install "/data/local/tmp/$_original"
 	rm "/data/local/tmp/$_original"
 	mmm_exec hideLoading
 fi
