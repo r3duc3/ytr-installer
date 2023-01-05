@@ -9,8 +9,7 @@ _dir='/sdcard'
 _original='YouTube.apk'
 _modified='revanced.apk'
 _modifiedDir='/data/adb/revanced'
-_pkg='com.google.android.youtube'
-_pmCmd("pm path $_pkg | grep base | sed 's/package\://'")
+_pmCmd=("pm path com.google.android.youtube | grep base | sed 's/package\://'")
 ###############
 
 if ! [ -f $_dir/$_modified ]; then
@@ -44,6 +43,14 @@ cp $_dir/$_modified $_modifiedDir
 chmod 0644 $_modifiedDir/$_modified
 chown system:system $_modifiedDir/$_modified
 chcon u:object_r:apk_data_file:s0 $_modifiedDir/$_modified
+
+cat > $MODDIR/service.sh << EOM
+#!/usr/bin/sh
+while [ "\$(getprop sys.boot_completed | tr -d '\r')" != "1" ]; do sleep 3; done
+patch=$_modifiedDir/$_modified
+orig=\$($_pmCmd)
+[ ! -z \$orig ] && mount -o bind \$patch \$orig;
+EOM
 
 mmm_exec hideLoading
 ui_print "[*] patched"
