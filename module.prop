@@ -4,3 +4,4 @@ version=v1.8.8
 versionCode=188
 author=r3duc3
 description=Install YouTube Revanced Root method
+updateJson=https://raw.github.com/r3duc3/ytr-installer/master/update.json
