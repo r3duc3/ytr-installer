@@ -2,38 +2,48 @@ if !$BOOTMODE; then
 	abort "[!] magisk only"
 fi
 
-#####################
-# here's the config #
-REAL_NAME='YouTube'
-MODIFIED='/data/adb/revanced.apk' # modified youtube
-#####################
+###############
+# config here
 
-if ! [ -f $MODIFIED ]; then
-	abort "[!] modified youtube not found"
+_dir='/sdcard'
+_original='YouTube.apk'
+_modified='revanced.apk'
+_modifiedDir='/data/adb/revanced'
+_pkg='com.google.android.youtube'
+_pmCmd("pm path $_pkg | grep base | sed 's/package\://'")
+###############
+
+if ! [ -f $_dir/$_modified ]; then
+	abort "[!] $_modified not found"
 fi
 
-INSTALLED=$(pm list packages | grep 'com.google.android.youtube')
-
-# check real Youtube first
-ui_print "[+] Check real $REAL_NAME"
-if ! [ $INSTALLED ]; then
-	ui_print "[-] Real $REAL_NAME not installed"
-	if ! [ -f "/sdcard/$REAL_NAME.apk" ]; then
-		abort "[!] file $REAL_NAME not exist"
+# original
+if ! [ $_pmCmd ]; then
+	ui_print "[*] original youtube not installed"
+	if ! [ -f $_dir/$_original ]; then
+		abort "[!] $_original not found"
 	fi
-	ui_print "[-] Installing real $REAL_NAME"
-	cp "/sdcard/$REAL_NAME.apk" "/data/local/tmp"
-	mmm_exec showLoading
-	pm install --dont-kill -g "/data/local/tmp/$REAL_NAME.apk"
-	mmm_exec hideLoading
-	rm "/data/local/tmp/$REAL_NAME.apk"
-fi
-ui_print "[-] real $REAL_NAME installed"
 
-# then patch
-ui_print "[+] revanced patch"
+	mmm_exec showLoading
+	ui_print "[*] installing $_original"
+	cp $_dir/$_original /data/local/tmp
+	pm install --dont-kill -g "/data/local/tmp/$_original"
+	mmm_exec hideLoading
+	rm "/data/local/tmp/$_original"
+fi
+
+# patch
+ui_print "[*] patching"
 mmm_exec showLoading
-cp $MODIFIED $MODPATH/base.apk
-rm $MODIFIED
+
+mkdir -p $_modifiedDir
+chmod 0755 $_modifiedDir
+chown shell:shell $_modifiedDir
+
+cp $_dir/$_modified $_modifiedDir
+chmod 0644 $_modifiedDir/$_modified
+chown system:system $_modifiedDir/$_modified
+chcon u:object_r:apk_data_file:s0 $_modifiedDir/$_modified
+
 mmm_exec hideLoading
-ui_print "[-] installed"
+ui_print "[*] patched"
