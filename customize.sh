@@ -4,10 +4,11 @@ fi
 
 ###############
 # config here
-
-_dir='/sdcard'
+_dir='/sdcard/revanced'
 _original='YouTube.apk'
 _modified='revanced.apk'
+###############
+# please don't change
 _modifiedDir='/data/adb/revanced'
 _pmCmd="pm path com.google.android.youtube | grep base | sed 's/package\://'"
 ###############
@@ -17,7 +18,7 @@ if ! [ -f $_dir/$_modified ]; then
 fi
 
 # original
-if ! [ $_pmCmd ]; then
+if ! [ $$_pmCmd ]; then
 	ui_print "[*] original youtube not installed"
 	if ! [ -f $_dir/$_original ]; then
 		abort "[!] $_original not found"
