@@ -47,6 +47,9 @@ ui_print "[*] original youtube installed"
 mmm_exec showLoading
 ui_print "[*] patching"
 
+am force-stop com.google.android.youtube
+umount -l $_pmCmd
+
 mkdir -p $_modifiedDir
 chmod 0755 $_modifiedDir
 chown shell:shell $_modifiedDir
