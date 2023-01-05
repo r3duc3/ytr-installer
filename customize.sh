@@ -30,20 +30,22 @@ fi
 if ! [ $$_pmCmd ]; then
 	ui_print "[*] original youtube not installed"
 	if ! [ -f $_dir/$_original ]; then
-		abort "[!] $_original not found"
+		abort "[!] $_dir/$_original not found"
 	fi
 
 	mmm_exec showLoading
 	ui_print "[*] installing $_original"
 	cp $_dir/$_original /data/local/tmp
 	pm install --dont-kill -g "/data/local/tmp/$_original"
-	mmm_exec hideLoading
 	rm "/data/local/tmp/$_original"
+	mmm_exec hideLoading
 fi
 
+ui_print "[*] original youtube installed"
+
 # patch
-ui_print "[*] patching"
 mmm_exec showLoading
+ui_print "[*] patching"
 
 mkdir -p $_modifiedDir
 chmod 0755 $_modifiedDir
