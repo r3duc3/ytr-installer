@@ -2,6 +2,15 @@ if ! $BOOTMODE; then
 	abort "[!] magisk only"
 fi
 
+if [ -n "$MMM_EXT_SUPPORT" ]; then
+	ui_print "#!useExt"
+	mmm_exec() {
+		ui_print "$(echo "#!$@")"
+	}
+else
+	mmm_exec() { true; }
+fi
+
 ###############
 # config here
 _dir='/sdcard/revanced'
