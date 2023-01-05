@@ -1,1 +1,1 @@
-rm -rf /data/adb/revanced
+#dummy
