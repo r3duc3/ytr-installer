@@ -1,17 +1,18 @@
-###########################################
-# dir      : where you store youtube file #
-#                                         #
-# mode     : install mode                 #
-#-available option for mode:             -#
-#-user     : install youtube to user data-#
-#-system   : install as system           -#
-#                                         #
-# original : name for youtube original    #
-# modified : name for youtube revanced    #
-###########################################
-
+# where you store youtube file
 config.dir=/sdcard/revanced
-config.mode=user
 
+# name for youtube original and youtube revanced
 name.original=YouTube.apk
 name.modified=revanced.apk
+
+# install mode
+# available option :
+# - user           : install to user data
+# - system         : install to system 
+config.mode=user
+
+# path to install system mode
+system.path=/system/app
+
+# if config.mode=system
+system.name=YouTube
