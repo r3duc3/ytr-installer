@@ -11,17 +11,34 @@ else
 	mmm_exec() { true; }
 fi
 
-###############
-# config here
-_dir='/sdcard/revanced'
-_original='YouTube.apk'
-_modified='revanced.apk'
-###############
+# determine config
+config="$MODPATH/ytr-config.prop"
+for file in '/sdcard' '/sdcard/revanced'; do
+	if [ -f "$file/ytr-config.prop" ]; then
+		ui_print "[*] custom config found"
+		config="$file/ytr-config.prop"
+		break
+	fi
+done
+
+prop() {
+    grep "${1}" ${config} | cut -d'=' -f2
+}
+
+######################
 # please don't change
+_dir=$(prop 'config.dir')
+_mode=$(prop 'config.mode')
+_original=$(prop 'name.original')
+_modified=$(prop 'name.modified')
 _modifiedDir='/data/adb/revanced'
 _pkg='com.google.android.youtube'
 _pmCmd="pm path $_pkg | sed 's/package\://'"
-###############
+######################
+
+if [ $_mode == 'system' ]; then
+	abort "[!] '$_mode' install under development"
+fi
 
 if ! [ -f $_dir/$_modified ]; then
 	abort "[!] $_modified not found"
