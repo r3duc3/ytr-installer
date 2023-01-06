@@ -11,6 +11,7 @@
 ###########################################
 
 config.dir=/sdcard/revanced
-config.original=YouTube.apk
-config.modified=revanced.apk
 config.mode=user
+
+name.original=YouTube.apk
+name.modified=revanced.apk
