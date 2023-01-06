@@ -61,9 +61,9 @@ fi
 
 ui_print "[*] original youtube installed"
 
-# patch
+# revanced
 mmm_exec showLoading
-ui_print "[*] patching"
+ui_print "[*] installing youtube revanced"
 
 am force-stop $_pkg
 umount -l $_pmCmd
@@ -92,4 +92,4 @@ rm -rf $_modifiedDir
 EOM
 
 mmm_exec hideLoading
-ui_print "[*] patched"
+ui_print "[*] success"
