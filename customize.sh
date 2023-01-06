@@ -20,7 +20,7 @@ _modified='revanced.apk'
 # please don't change
 _modifiedDir='/data/adb/revanced'
 _pkg='com.google.android.youtube'
-_pmCmd="pm path $_pkg | grep base | sed 's/package\://'"
+_pmCmd="pm path $_pkg | sed 's/package\://'"
 ###############
 
 if ! [ -f $_dir/$_modified ]; then
