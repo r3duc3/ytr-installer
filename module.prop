@@ -1,7 +1,7 @@
 id=ytr-installer
 name=YouTube Revanced Installer system/less
-version=v1.9.0
-versionCode=190
+version=v1.9.1
+versionCode=191
 author=r3duc3
 description=Install YouTube Revanced Root method
-updateJson=https://raw.github.com/r3duc3/ytr-installer/master/update.json
+updateJson=https://raw.githubusercontent.com/r3duc3/ytr-installer/master/update.json

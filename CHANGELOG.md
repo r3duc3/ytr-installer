@@ -1,3 +1,7 @@
+# v1.9.1
+- fix pm command
+- code improvement
+
 # v1.9.0
 - custom config
 - set `com.android.vending` for package installer owning the app
